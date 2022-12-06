@@ -1,4 +1,4 @@
-![Logo do Projeto](https://raw.githubusercontent.com/hiag0liveira/Up-Car/main/images/logos/logo%202.png"Logo Up Car")
+![Logo do Projeto](https://raw.githubusercontent.com/hiag0liveira/Up-Car/main/images/logos/logo1.png "Logo Up Car")
 
 # Projeto de Desenvolvimento Web
 
