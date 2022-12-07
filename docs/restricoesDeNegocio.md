@@ -18,6 +18,18 @@
 * Nome - varchar(50) not null
 * CNPJ - Padrão (regex)-> Formato específico. not null
 
+### Carro
+* Nome - varchar(50) not null
+* Marca - varchar(20) not null
+* Modelo - varchar(50) not null
+* Combustivel - Enum ( TipoCombustivelEnum) not null
+* Cor - varchar(50) not null 
+* Placa - varchar(10) not null
+* Km - varchar(10) not null
+* AnoFabricacao - int not null
+* AnoModelo - int not null
+* Descricao - varchar(50) 
+
 ### Endereco
 * Rua - varchar(50) not null
 * Numero - int not null
