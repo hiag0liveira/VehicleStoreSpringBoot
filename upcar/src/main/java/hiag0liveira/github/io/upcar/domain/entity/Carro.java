@@ -14,22 +14,22 @@ public class Carro {
     @Column(name = "nome", length = 100)
     private String nome;
 
-    @Column(name = "marca")
+    @Column(name = "marca", length = 100)
     private String marca;
 
-    @Column(name = "modelo")
+    @Column(name = "modelo", length = 100)
     private String modelo;
 
-    @Column(name = "cor")
+    @Column(name = "cor", length = 100)
     private String cor;
 
-    @Column(name = "placa")
+    @Column(name = "placa", length = 8)
     private String placa;
 
-    @Column(name = "km_rodado")
+    @Column(name = "km_rodado", length = 100)
     private String km_rodado;
 
-    @Column(name = "descricao")
+    @Column(name = "descricao", length = 300)
     private String descricao;
 
     @Column(name = "anoFabricacao")
@@ -38,6 +38,7 @@ public class Carro {
     @Column(name = "anoModelo")
     private int anoModelo;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "tipoCombustivel")
     private TipoCombustivelEnum tipoCombustivelEnum;
 

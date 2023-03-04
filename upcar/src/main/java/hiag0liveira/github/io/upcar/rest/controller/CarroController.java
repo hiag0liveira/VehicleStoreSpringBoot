@@ -1,8 +1,6 @@
 package hiag0liveira.github.io.upcar.rest.controller;
 
-import hiag0liveira.github.io.upcar.domain.entity.Agendamento;
 import hiag0liveira.github.io.upcar.domain.entity.Carro;
-import hiag0liveira.github.io.upcar.domain.repository.Agendamentos;
 import hiag0liveira.github.io.upcar.domain.repository.Carros;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;

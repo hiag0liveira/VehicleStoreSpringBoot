@@ -8,7 +8,7 @@ import jakarta.persistence.Table;
 @Table( name = "vendedor" )
 public class Vendedor extends Pessoa{
 
-    @Column(name = "cargo")
+    @Column(name = "cargo",nullable=false, length = 40)
     private String cargo;
 
     @Column(name = "categoria")

@@ -11,14 +11,14 @@ public class Concessionaria {
     @Column(name = "id")
     private Integer id;
 
-    @OneToOne
-    @Column(name = "Endereco")
+    @ManyToOne
+    @JoinColumn(name = "concessionaria_endereco_id")
     private Endereco endereco;
 
-    @Column(name = "nome", length = 100)
+    @Column(name = "nome", nullable=false, length = 150)
     private String nome;
 
-    @Column(name = "cnpj", length = 14)
+    @Column(name = "cnpj", length = 20, nullable = false)
     private String cnpj;
     
     public Concessionaria(Endereco endereco, String nome, String cnpj) {

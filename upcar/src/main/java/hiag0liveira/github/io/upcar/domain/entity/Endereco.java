@@ -11,25 +11,25 @@ public class Endereco {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "rua")
+    @Column(name = "rua", length = 50)
     private String rua;
 
-    @Column(name = "numero")
+    @Column(name = "numero",length = 10)
     private String numero;
 
-    @Column(name = "cep")
+    @Column(name = "cep", length = 8)
     private String cep;
 
-    @Column(name = "complemento")
+    @Column(name = "complemento", length = 50)
     private String complemento;
 
-    @Column(name = "cidade")
+    @Column(name = "cidade", length = 50)
     private String cidade;
 
-    @Column(name = "bairro")
+    @Column(name = "bairro", length = 50)
     private String bairro;
 
-    @Column(name = "estado")
+    @Column(name = "estado", length = 50)
     private String estado;
     
     public Endereco(String rua, String numero, String cep, String complemento, String cidade, String bairro,

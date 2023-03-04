@@ -1,9 +1,13 @@
 package hiag0liveira.github.io.upcar.domain.entity;
 
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.micrometer.core.instrument.Clock;
 import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table( name = "agendamento" )
@@ -14,13 +18,15 @@ public class Agendamento {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "data")
-    private Date data;
+    @Column(name = "data_agendamento", nullable = true)
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate data;
 
     @Column(name = "hora")
-    private Clock hora;
+    private LocalDateTime hora;
 
-    public Agendamento(Date data, Clock hora) {
+    public Agendamento(LocalDate data, LocalDateTime hora) {
         this.data = data;
         this.hora = hora;
     }
@@ -37,19 +43,19 @@ public class Agendamento {
         this.id = id;
     }
 
-    public Date getData() {
+    public LocalDate getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(LocalDate data) {
         this.data = data;
     }
 
-    public Clock getHora() {
+    public LocalDateTime getHora() {
         return hora;
     }
 
-    public void setHora(Clock hora) {
+    public void setHora(LocalDateTime hora) {
         this.hora = hora;
     }
 
