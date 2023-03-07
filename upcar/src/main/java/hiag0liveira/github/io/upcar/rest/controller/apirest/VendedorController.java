@@ -1,9 +1,7 @@
-package hiag0liveira.github.io.upcar.rest.controller;
+package hiag0liveira.github.io.upcar.rest.controller.apirest;
 
-import hiag0liveira.github.io.upcar.domain.entity.Carro;
-import hiag0liveira.github.io.upcar.domain.entity.Pessoa;
-import hiag0liveira.github.io.upcar.domain.repository.Carros;
-import hiag0liveira.github.io.upcar.domain.repository.Pessoas;
+import hiag0liveira.github.io.upcar.domain.entity.Vendedor;
+import hiag0liveira.github.io.upcar.domain.repository.Vendedores;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.HttpStatus;
@@ -13,59 +11,59 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @RestController
-@RequestMapping ("/api/pessoa")
-public class PessoaController {
+@RequestMapping ("/api/vendedor")
+public class VendedorController {
 
-    private Pessoas pessoas;
+    private Vendedores vendedores;
 
-    public PessoaController(Pessoas pessoas) {
-        this.pessoas = pessoas;
+    public VendedorController(Vendedores vendedores) {
+        this.vendedores = vendedores;
     }
 
     @GetMapping("{id}")
-    public Pessoa getPessoaById(@PathVariable Integer id ){
-        return pessoas
+    public Vendedor getVendedorById(@PathVariable Integer id ){
+        return vendedores
                 .findById(id)
                 .orElseThrow(() ->
                         new ResponseStatusException(HttpStatus.NOT_FOUND,
-                                "Pessoa não encontrado"));
+                                "Vendedor não encontrado"));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Pessoa save( @RequestBody Pessoa pessoa ){
-        return pessoas.save(pessoa);
+    public Vendedor save( @RequestBody Vendedor vendedor ){
+        return vendedores.save(vendedor);
     }
 
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete( @PathVariable Integer id ){
-        pessoas.findById(id)
-                .map( pessoa -> {
-                    pessoas.delete(pessoa );
-                    return pessoa;
+        vendedores.findById(id)
+                .map( vendedor -> {
+                    vendedores.delete(vendedor );
+                    return vendedor;
                 })
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        "Pessoa não encontrado") );
+                        "Vendedor encontrado") );
 
     }
 
     @PutMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update( @PathVariable Integer id,
-                        @RequestBody Pessoa pessoa ){
-        pessoas
+                        @RequestBody Vendedor vendedor ){
+        vendedores
                 .findById(id)
-                .map( pessoaExistente -> {
-                    pessoa.setId(pessoaExistente.getId());
-                    pessoas.save(pessoa);
-                    return pessoaExistente;
+                .map( vendedorExistente -> {
+                    vendedor.setId(vendedorExistente.getId());
+                    vendedores.save(vendedor);
+                    return vendedorExistente;
                 }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        "Pessoa não encontrado") );
+                        "Vendedor não encontrado") );
     }
 
     @GetMapping
-    public List<Pessoa> find(Pessoa filtro ){
+    public List<Vendedor> find(Vendedor filtro ){
         ExampleMatcher matcher = ExampleMatcher
                 .matching()
                 .withIgnoreCase()
@@ -73,6 +71,6 @@ public class PessoaController {
                         ExampleMatcher.StringMatcher.CONTAINING );
 
         Example example = Example.of(filtro, matcher);
-        return pessoas.findAll(example);
+        return vendedores.findAll(example);
     }
 }

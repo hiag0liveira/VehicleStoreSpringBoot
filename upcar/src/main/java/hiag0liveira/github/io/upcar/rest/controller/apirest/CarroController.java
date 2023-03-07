@@ -1,9 +1,7 @@
-package hiag0liveira.github.io.upcar.rest.controller;
+package hiag0liveira.github.io.upcar.rest.controller.apirest;
 
 import hiag0liveira.github.io.upcar.domain.entity.Carro;
-import hiag0liveira.github.io.upcar.domain.entity.Vendedor;
 import hiag0liveira.github.io.upcar.domain.repository.Carros;
-import hiag0liveira.github.io.upcar.domain.repository.Vendedores;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.HttpStatus;
@@ -13,59 +11,59 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @RestController
-@RequestMapping ("/api/vendedor")
-public class VendedorController {
+@RequestMapping ("/api/carro")
+public class CarroController {
 
-    private Vendedores vendedores;
+    private Carros carros;
 
-    public VendedorController(Vendedores vendedores) {
-        this.vendedores = vendedores;
+    public CarroController(Carros carros) {
+        this.carros = carros;
     }
 
     @GetMapping("{id}")
-    public Vendedor getVendedorById(@PathVariable Integer id ){
-        return vendedores
+    public Carro getCarroById(@PathVariable Integer id ){
+        return carros
                 .findById(id)
                 .orElseThrow(() ->
                         new ResponseStatusException(HttpStatus.NOT_FOUND,
-                                "Vendedor não encontrado"));
+                                "Carro não encontrado"));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Vendedor save( @RequestBody Vendedor vendedor ){
-        return vendedores.save(vendedor);
+    public Carro save( @RequestBody Carro carro ){
+        return carros.save(carro);
     }
 
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete( @PathVariable Integer id ){
-        vendedores.findById(id)
-                .map( vendedor -> {
-                    vendedores.delete(vendedor );
-                    return vendedor;
+        carros.findById(id)
+                .map( carro -> {
+                    carros.delete(carro );
+                    return carro;
                 })
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        "Vendedor encontrado") );
+                        "Carro não encontrado") );
 
     }
 
     @PutMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update( @PathVariable Integer id,
-                        @RequestBody Vendedor vendedor ){
-        vendedores
+                        @RequestBody Carro carro ){
+        carros
                 .findById(id)
-                .map( vendedorExistente -> {
-                    vendedor.setId(vendedorExistente.getId());
-                    vendedores.save(vendedor);
-                    return vendedorExistente;
+                .map( carroExistente -> {
+                    carro.setId(carroExistente.getId());
+                    carros.save(carro);
+                    return carroExistente;
                 }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        "Vendedor não encontrado") );
+                        "Carro não encontrado") );
     }
 
     @GetMapping
-    public List<Vendedor> find(Vendedor filtro ){
+    public List<Carro> find(Carro filtro ){
         ExampleMatcher matcher = ExampleMatcher
                 .matching()
                 .withIgnoreCase()
@@ -73,6 +71,6 @@ public class VendedorController {
                         ExampleMatcher.StringMatcher.CONTAINING );
 
         Example example = Example.of(filtro, matcher);
-        return vendedores.findAll(example);
+        return carros.findAll(example);
     }
 }

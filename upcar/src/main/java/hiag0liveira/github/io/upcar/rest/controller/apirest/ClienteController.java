@@ -1,9 +1,7 @@
-package hiag0liveira.github.io.upcar.rest.controller;
+package hiag0liveira.github.io.upcar.rest.controller.apirest;
 
 import hiag0liveira.github.io.upcar.domain.entity.Cliente;
-import hiag0liveira.github.io.upcar.domain.entity.Endereco;
 import hiag0liveira.github.io.upcar.domain.repository.Clientes;
-import hiag0liveira.github.io.upcar.domain.repository.Enderecos;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.HttpStatus;
@@ -13,59 +11,59 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/endereco")
-public class EnderecoController {
+@RequestMapping("/api/clientes")
+public class ClienteController {
 
-    private Enderecos enderecos;
+    private Clientes clientes;
 
-    public EnderecoController(Enderecos enderecos ) {
-        this.enderecos = enderecos;
+    public ClienteController( Clientes clientes ) {
+        this.clientes = clientes;
     }
 
     @GetMapping("{id}")
-    public Endereco getEnderecosById(@PathVariable Integer id ){
-        return enderecos
+    public Cliente getClienteById(@PathVariable Integer id ){
+        return clientes
                 .findById(id)
                 .orElseThrow(() ->
                         new ResponseStatusException(HttpStatus.NOT_FOUND,
-                                "Endereco não encontrado"));
+                                "Cliente não encontrado"));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Endereco save(@RequestBody Endereco endereco ){
-        return enderecos.save(endereco);
+    public Cliente save( @RequestBody Cliente cliente ){
+        return clientes.save(cliente);
     }
 
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete( @PathVariable Integer id ){
-        enderecos.findById(id)
-                .map( endereco -> {
-                    enderecos.delete(endereco );
-                    return endereco;
+        clientes.findById(id)
+                .map( cliente -> {
+                    clientes.delete(cliente );
+                    return cliente;
                 })
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        "Endereco não encontrado") );
+                        "Cliente não encontrado") );
 
     }
 
     @PutMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update( @PathVariable Integer id,
-                        @RequestBody Endereco endereco ){
-        enderecos
+                        @RequestBody Cliente cliente ){
+        clientes
                 .findById(id)
-                .map( enderecoExistente -> {
-                    endereco.setId(enderecoExistente.getId());
-                    enderecos.save(endereco);
-                    return enderecoExistente;
+                .map( clienteExistente -> {
+                    cliente.setId(clienteExistente.getId());
+                    clientes.save(cliente);
+                    return clienteExistente;
                 }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        "Endereco não encontrado") );
+                        "Cliente não encontrado") );
     }
 
     @GetMapping
-    public List<Endereco> find( Endereco filtro ){
+    public List<Cliente> find( Cliente filtro ){
         ExampleMatcher matcher = ExampleMatcher
                 .matching()
                 .withIgnoreCase()
@@ -73,7 +71,7 @@ public class EnderecoController {
                         ExampleMatcher.StringMatcher.CONTAINING );
 
         Example example = Example.of(filtro, matcher);
-        return enderecos.findAll(example);
+        return clientes.findAll(example);
     }
 
 }

@@ -1,4 +1,4 @@
-package hiag0liveira.github.io.upcar.rest.controller;
+package hiag0liveira.github.io.upcar.rest.controller.apirest;
 
 import hiag0liveira.github.io.upcar.domain.entity.Agendamento;
 import hiag0liveira.github.io.upcar.domain.repository.Agendamentos;

@@ -1,7 +1,7 @@
-package hiag0liveira.github.io.upcar.rest.controller;
+package hiag0liveira.github.io.upcar.rest.controller.apirest;
 
-import hiag0liveira.github.io.upcar.domain.entity.Cliente;
-import hiag0liveira.github.io.upcar.domain.repository.Clientes;
+import hiag0liveira.github.io.upcar.domain.entity.Pessoa;
+import hiag0liveira.github.io.upcar.domain.repository.Pessoas;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.HttpStatus;
@@ -11,59 +11,59 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/clientes")
-public class ClienteController {
+@RequestMapping ("/api/pessoa")
+public class PessoaController {
 
-    private Clientes clientes;
+    private Pessoas pessoas;
 
-    public ClienteController( Clientes clientes ) {
-        this.clientes = clientes;
+    public PessoaController(Pessoas pessoas) {
+        this.pessoas = pessoas;
     }
 
     @GetMapping("{id}")
-    public Cliente getClienteById(@PathVariable Integer id ){
-        return clientes
+    public Pessoa getPessoaById(@PathVariable Integer id ){
+        return pessoas
                 .findById(id)
                 .orElseThrow(() ->
                         new ResponseStatusException(HttpStatus.NOT_FOUND,
-                                "Cliente não encontrado"));
+                                "Pessoa não encontrado"));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Cliente save( @RequestBody Cliente cliente ){
-        return clientes.save(cliente);
+    public Pessoa save( @RequestBody Pessoa pessoa ){
+        return pessoas.save(pessoa);
     }
 
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete( @PathVariable Integer id ){
-        clientes.findById(id)
-                .map( cliente -> {
-                    clientes.delete(cliente );
-                    return cliente;
+        pessoas.findById(id)
+                .map( pessoa -> {
+                    pessoas.delete(pessoa );
+                    return pessoa;
                 })
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        "Cliente não encontrado") );
+                        "Pessoa não encontrado") );
 
     }
 
     @PutMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update( @PathVariable Integer id,
-                        @RequestBody Cliente cliente ){
-        clientes
+                        @RequestBody Pessoa pessoa ){
+        pessoas
                 .findById(id)
-                .map( clienteExistente -> {
-                    cliente.setId(clienteExistente.getId());
-                    clientes.save(cliente);
-                    return clienteExistente;
+                .map( pessoaExistente -> {
+                    pessoa.setId(pessoaExistente.getId());
+                    pessoas.save(pessoa);
+                    return pessoaExistente;
                 }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        "Cliente não encontrado") );
+                        "Pessoa não encontrado") );
     }
 
     @GetMapping
-    public List<Cliente> find( Cliente filtro ){
+    public List<Pessoa> find(Pessoa filtro ){
         ExampleMatcher matcher = ExampleMatcher
                 .matching()
                 .withIgnoreCase()
@@ -71,7 +71,6 @@ public class ClienteController {
                         ExampleMatcher.StringMatcher.CONTAINING );
 
         Example example = Example.of(filtro, matcher);
-        return clientes.findAll(example);
+        return pessoas.findAll(example);
     }
-
 }

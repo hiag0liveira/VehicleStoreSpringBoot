@@ -1,8 +1,6 @@
-package hiag0liveira.github.io.upcar.rest.controller;
+package hiag0liveira.github.io.upcar.rest.controller.apirest;
 
-import hiag0liveira.github.io.upcar.domain.entity.Cliente;
 import hiag0liveira.github.io.upcar.domain.entity.Concessionaria;
-import hiag0liveira.github.io.upcar.domain.repository.Clientes;
 import hiag0liveira.github.io.upcar.domain.repository.Concessionarias;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;

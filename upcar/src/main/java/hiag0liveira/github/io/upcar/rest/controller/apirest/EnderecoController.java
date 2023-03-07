@@ -1,7 +1,7 @@
-package hiag0liveira.github.io.upcar.rest.controller;
+package hiag0liveira.github.io.upcar.rest.controller.apirest;
 
-import hiag0liveira.github.io.upcar.domain.entity.Carro;
-import hiag0liveira.github.io.upcar.domain.repository.Carros;
+import hiag0liveira.github.io.upcar.domain.entity.Endereco;
+import hiag0liveira.github.io.upcar.domain.repository.Enderecos;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.HttpStatus;
@@ -11,59 +11,59 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @RestController
-@RequestMapping ("/api/carro")
-public class CarroController {
+@RequestMapping("/api/endereco")
+public class EnderecoController {
 
-    private Carros carros;
+    private Enderecos enderecos;
 
-    public CarroController(Carros carros) {
-        this.carros = carros;
+    public EnderecoController(Enderecos enderecos ) {
+        this.enderecos = enderecos;
     }
 
     @GetMapping("{id}")
-    public Carro getCarroById(@PathVariable Integer id ){
-        return carros
+    public Endereco getEnderecosById(@PathVariable Integer id ){
+        return enderecos
                 .findById(id)
                 .orElseThrow(() ->
                         new ResponseStatusException(HttpStatus.NOT_FOUND,
-                                "Carro não encontrado"));
+                                "Endereco não encontrado"));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Carro save( @RequestBody Carro carro ){
-        return carros.save(carro);
+    public Endereco save(@RequestBody Endereco endereco ){
+        return enderecos.save(endereco);
     }
 
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete( @PathVariable Integer id ){
-        carros.findById(id)
-                .map( carro -> {
-                    carros.delete(carro );
-                    return carro;
+        enderecos.findById(id)
+                .map( endereco -> {
+                    enderecos.delete(endereco );
+                    return endereco;
                 })
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        "Carro não encontrado") );
+                        "Endereco não encontrado") );
 
     }
 
     @PutMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update( @PathVariable Integer id,
-                        @RequestBody Carro carro ){
-        carros
+                        @RequestBody Endereco endereco ){
+        enderecos
                 .findById(id)
-                .map( carroExistente -> {
-                    carro.setId(carroExistente.getId());
-                    carros.save(carro);
-                    return carroExistente;
+                .map( enderecoExistente -> {
+                    endereco.setId(enderecoExistente.getId());
+                    enderecos.save(endereco);
+                    return enderecoExistente;
                 }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        "Carro não encontrado") );
+                        "Endereco não encontrado") );
     }
 
     @GetMapping
-    public List<Carro> find(Carro filtro ){
+    public List<Endereco> find( Endereco filtro ){
         ExampleMatcher matcher = ExampleMatcher
                 .matching()
                 .withIgnoreCase()
@@ -71,6 +71,7 @@ public class CarroController {
                         ExampleMatcher.StringMatcher.CONTAINING );
 
         Example example = Example.of(filtro, matcher);
-        return carros.findAll(example);
+        return enderecos.findAll(example);
     }
+
 }
