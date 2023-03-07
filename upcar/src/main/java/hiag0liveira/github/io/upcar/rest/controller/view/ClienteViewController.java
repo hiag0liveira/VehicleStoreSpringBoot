@@ -30,4 +30,9 @@ public class ClienteViewController {
         return "FormClientes";
     }
 
+    @GetMapping
+    public String buscarClientes(Model model) {
+        model.addAttribute("clientes", repoClientes.findAll());
+        return "clientes";
+    }
 }
