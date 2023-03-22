@@ -5,7 +5,6 @@ import hiag0liveira.github.io.upcar.domain.entity.Cliente;
 import hiag0liveira.github.io.upcar.domain.repository.Clientes;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -27,7 +26,6 @@ public class ClienteService {
                                 "Cliente não encontrado"));
     }
 
-
     public Cliente saveOneNewCliente( Cliente cliente ){
         return clientes.save(cliente);
     }
@@ -40,7 +38,6 @@ public class ClienteService {
                 })
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                         "Cliente não encontrado") );
-
     }
 
     public void updateCliente(  Integer id, Cliente cliente ){
@@ -54,7 +51,6 @@ public class ClienteService {
                         "Cliente não encontrado") );
     }
 
-    @GetMapping
     public List<Cliente> findAllClientes(){
         return clientes.findAll();
     }
