@@ -20,7 +20,6 @@ public class ClienteController {
     @Autowired
     private ClienteService service;
 
-
     @GetMapping("{id}")
     public ResponseEntity OneClienteById(@PathVariable Integer id ){
         return ResponseEntity.ok(service.getClienteById(id));
