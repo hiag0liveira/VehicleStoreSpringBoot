@@ -1,13 +1,12 @@
 package hiag0liveira.github.io.upcar.domain.entity;
 
-import java.sql.Date;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.micrometer.core.instrument.Clock;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Calendar;
 
 @Entity
 @Table( name = "agendamento" )
@@ -18,18 +17,26 @@ public class Agendamento {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "data_agendamento", nullable = true)
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Column(nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    @NotNull(message = "Data de registro é obrigatória.")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate data;
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    private Calendar dataHora;
 
-    @Column(name = "hora")
-    private LocalDateTime hora;
+    @Column(nullable = false)
+    @Temporal(TemporalType.DATE)
+    @NotNull(message = "Data de Agendamento é obrigatória.")
+    @Future(message = "Data de Agendamento de Reunião deve ser acima da atual")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    private Calendar InicioReuniao;
 
-    public Agendamento(LocalDate data, LocalDateTime hora) {
-        this.data = data;
-        this.hora = hora;
-    }
+    @Column(nullable = false)
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    private Calendar FimReuniao;
 
     public Agendamento() {
 
@@ -43,28 +50,27 @@ public class Agendamento {
         this.id = id;
     }
 
-    public LocalDate getData() {
-        return data;
+    public Calendar getDataHora() {
+        return dataHora;
     }
 
-    public void setData(LocalDate data) {
-        this.data = data;
+    public void setDataHora(Calendar dataHora) {
+        this.dataHora = dataHora;
     }
 
-    public LocalDateTime getHora() {
-        return hora;
+    public Calendar getInicioReuniao() {
+        return InicioReuniao;
     }
 
-    public void setHora(LocalDateTime hora) {
-        this.hora = hora;
+    public void setInicioReuniao(Calendar inicioReuniao) {
+        InicioReuniao = inicioReuniao;
     }
 
-    @Override
-    public String toString() {
-        return "Agendamento{" +
-                "id=" + id +
-                ", data=" + data +
-                ", hora=" + hora +
-                '}';
+    public Calendar getFimReuniao() {
+        return FimReuniao;
+    }
+
+    public void setFimReuniao(Calendar fimReuniao) {
+        FimReuniao = fimReuniao;
     }
 }

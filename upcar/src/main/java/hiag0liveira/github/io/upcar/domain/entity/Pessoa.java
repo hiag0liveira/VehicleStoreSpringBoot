@@ -1,7 +1,15 @@
 package hiag0liveira.github.io.upcar.domain.entity;
 
+import hiag0liveira.github.io.upcar.annotation.EmailValidation;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.br.CPF;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -15,28 +23,36 @@ public abstract class Pessoa {
     private Integer id;
 
     @Column(name = "nome", nullable=false, length = 150)
+    @NotBlank(message = "Por favor insira o nome do Usuario")
+    @Length(max = 150, message = "Nome deve ter no máximo 150 caracteres.")
     private String nome;
 
     @Column(name = "cpf",nullable=false, length = 14, unique =true, updatable=false)
+    @CPF(message = "CPF inválido.")
+    @NotNull(message = "Por favor insira um CPF valido")
     private String cpf;
 
     @Column(name = "email",nullable=false, length = 80, unique =true)
+    @EmailValidation(message = "Email inválido.")
     private String email;
 
-    @Column(name = "telefone",nullable=false, length = 11)
-    private String telefone;
+    @ElementCollection
+    @Valid
+    private List<Telefone> telefones = new ArrayList<>();
 
 
     @JoinColumn(name = "endereco_pessoa_id", referencedColumnName = "id", nullable = false)
+    @NotNull(message = "Endereço obrigatório.")
     @OneToMany
     private List<Endereco> enderecos;
 
-    public Pessoa(Integer id, String nome, String cpf, String email, String telefone) {
+    public Pessoa(Integer id, String nome, String cpf, String email, List<Telefone> telefones, List<Endereco> enderecos) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
         this.email = email;
-        this.telefone = telefone;
+        this.telefones = telefones;
+        this.enderecos = enderecos;
     }
 
     public Pessoa() {
@@ -44,6 +60,9 @@ public abstract class Pessoa {
     }
 
     public Pessoa(String nome, String cpf, String email, String telefone) {
+    }
+
+    public Pessoa(String nome, String cpf, String email, List<Telefone> telefones, List<Endereco> enderecos) {
     }
 
     public Integer getId() {
@@ -78,12 +97,12 @@ public abstract class Pessoa {
         this.email = email;
     }
 
-    public String getTelefone() {
-        return telefone;
+    public List<Telefone> getTelefones() {
+        return telefones;
     }
 
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
+    public void setTelefones(List<Telefone> telefones) {
+        this.telefones = telefones;
     }
 
     public List<Endereco> getEnderecos() {
@@ -94,14 +113,4 @@ public abstract class Pessoa {
         this.enderecos = enderecos;
     }
 
-    @Override
-    public String toString() {
-        return "Pessoa{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                ", cpf='" + cpf + '\'' +
-                ", email='" + email + '\'' +
-                ", telefone='" + telefone + '\'' +
-                '}';
-    }
 }
