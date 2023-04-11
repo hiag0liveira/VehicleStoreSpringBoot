@@ -1,4 +1,4 @@
-package hiag0liveira.github.io.upcar.rest.controller.view;
+package hiag0liveira.github.io.upcar.controller.view;
 
 
 import org.springframework.stereotype.Controller;

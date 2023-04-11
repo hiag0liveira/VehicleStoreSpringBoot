@@ -1,4 +1,4 @@
-package hiag0liveira.github.io.upcar.rest.controller.apirest;
+package hiag0liveira.github.io.upcar.controller.apirest;
 
 import hiag0liveira.github.io.upcar.domain.entity.Cliente;
 import hiag0liveira.github.io.upcar.domain.repository.Clientes;
