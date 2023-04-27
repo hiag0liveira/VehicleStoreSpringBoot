@@ -1,0 +1,25 @@
+<div class="card-group col-md-3 pb-4" th:each="carro : ${carros}">
+  <div th:id="${carro.id}" class="card">
+    <div class="block-img">
+      <img class="card-img-top" th:src="${carro.linkImagem}" alt="Card image cap">
+    </div>
+    <div class="card-body">
+      <div>
+        <p class="card-subtitle mb-2 text-muted"
+           th:text="${#strings.abbreviate(carro.modelo, 40)}">titulo</p>
+      </div>
+      <div>
+        <h5 class="card-title" th:text="${carro.anoFabricacao}">ano Fabricacao</h5>
+      </div>
+      <div>
+        <p class="card-text" th:text="${carro.marca}">sobre a promoção</p>
+      </div>
+      <div>
+        <h6 class="badge badge-primary" th:text="|R$ ${{carro.preco}}|">R$ 9,99</h6>
+      </div>
+      <a href="https://web.whatsapp.com/"
+         class="btn btn-sm btn-outline-secondary" role="button"
+         aria-pressed="true" target="new">Saiba Mais</a>
+    </div>
+  </div>
+</div>
